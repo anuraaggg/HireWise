@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Manrope, Fraunces } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
-const sora = Sora({
-  variable: "--font-sora",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "AI Resume Skill Gap Analyzer",
-  description: "Skill gap analysis with semantic matching and explainable readiness scoring",
+  title: "HireWise",
+  description: "HireWise: semantic resume-to-job matching with explainable readiness scoring",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${sora.variable} antialiased`}>
+      <body className={`${manrope.variable} ${fraunces.variable} antialiased`}>
         {children}
       </body>
     </html>
