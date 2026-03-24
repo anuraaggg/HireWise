@@ -194,11 +194,24 @@ export default function AnalyzePage() {
               </div>
               <div className="rounded-2xl border border-white/10 bg-black/35 p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-400">Overall Assessment</p>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-200">
+                <p className="font-display mt-2 text-lg font-semibold leading-relaxed text-zinc-100 md:text-xl">
                   {result.explanation?.final_summary?.overall_candidate_assessment || "Assessment unavailable."}
                 </p>
               </div>
             </div>
+
+            {result.inputs?.job_skills_normalized?.length ? (
+              <div className="mt-5 rounded-2xl border border-white/10 bg-black/30 p-4">
+                <h3 className="font-display text-lg font-semibold text-zinc-100">Parsed Job Skills</h3>
+                <ul className="mt-3 flex flex-wrap gap-2 text-sm text-zinc-200">
+                  {result.inputs.job_skills_normalized.map((skill) => (
+                    <li key={skill} className="rounded-full border border-white/15 bg-black/45 px-3 py-1">
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
 
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               <div className="rounded-2xl border border-rose-300/45 bg-rose-500/10 p-4">
@@ -243,18 +256,6 @@ export default function AnalyzePage() {
               </ul>
             </div>
 
-            {result.inputs?.job_skills_normalized?.length ? (
-              <div className="mt-5 rounded-2xl border border-white/10 bg-black/30 p-4">
-                <h3 className="font-display text-lg font-semibold text-zinc-100">Parsed Job Skills</h3>
-                <ul className="mt-3 flex flex-wrap gap-2 text-sm text-zinc-200">
-                  {result.inputs.job_skills_normalized.map((skill) => (
-                    <li key={skill} className="rounded-full border border-white/15 bg-black/45 px-3 py-1">
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
           </section>
         ) : null}
       </div>
