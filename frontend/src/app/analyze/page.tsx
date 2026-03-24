@@ -144,7 +144,7 @@ export default function AnalyzePage() {
                     type="file"
                     accept=".pdf,.docx,.txt"
                     onChange={(event) => setResumeFile(event.target.files?.[0] ?? null)}
-                    className="mt-2 w-full rounded-2xl border border-white/15 bg-black/45 p-3 text-sm text-zinc-100 file:mr-3 file:rounded-xl file:border-0 file:bg-zinc-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-black hover:file:bg-zinc-300"
+                      className="mt-2 w-full rounded-2xl border border-white/15 bg-black/45 p-3 text-sm text-zinc-100 file:mr-3 file:rounded-xl file:border file:border-white/20 file:bg-black/35 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-zinc-100 hover:file:border-cyan-300/60 hover:file:text-cyan-200"
                   />
                   <p className="mt-2 text-xs text-zinc-400">
                     {resumeFile ? `Selected file: ${resumeFile.name}` : "No file selected"}
@@ -152,23 +152,26 @@ export default function AnalyzePage() {
                 </label>
 
                 <div className="rounded-2xl border border-white/10 bg-black/35 p-4">
-                  <label className="text-sm font-semibold text-zinc-200" htmlFor="threshold">
-                    Similarity Threshold
-                  </label>
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-semibold text-zinc-200" htmlFor="threshold">
+                      Similarity Threshold
+                    </label>
+                    <span className="text-xs font-semibold text-cyan-200">{threshold}</span>
+                  </div>
                   <input
                     id="threshold"
-                    type="number"
+                    type="range"
                     min="0"
                     max="1"
                     step="0.01"
                     value={threshold}
                     onChange={(event) => setThreshold(event.target.value)}
-                    className="mt-2 w-full rounded-xl border border-white/20 bg-black/45 p-2 text-sm text-zinc-100 outline-none transition focus:border-cyan-400"
+                    className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-zinc-700 accent-white"
                   />
                   <button
                     type="submit"
                     disabled={loading}
-                    className="mt-3 w-full rounded-xl bg-zinc-100 px-5 py-2 text-sm font-semibold text-black transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+                    className="mt-3 w-full rounded-xl border border-white/20 bg-black/35 px-5 py-2 text-sm font-semibold text-zinc-100 transition hover:border-cyan-300/60 hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {loading ? "Analyzing..." : "Analyze"}
                   </button>

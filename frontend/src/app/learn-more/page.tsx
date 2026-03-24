@@ -27,7 +27,7 @@ export default function LearnMorePage() {
               </Link>
               <Link
                 href="/analyze"
-                className="inline-flex items-center justify-center rounded-xl bg-zinc-100 px-4 py-2 text-sm font-semibold text-black transition hover:bg-white"
+                className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-black/35 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:border-cyan-300/60 hover:text-cyan-200"
               >
                 Start Analysis
               </Link>
