@@ -202,8 +202,8 @@ export default function AnalyzePage() {
 
             {result.inputs?.job_skills_normalized?.length ? (
               <div className="mt-5 rounded-2xl border border-white/10 bg-black/30 p-4">
-                <h3 className="font-display text-lg font-semibold text-zinc-100">Parsed Job Skills</h3>
-                <ul className="mt-3 flex flex-wrap gap-2 text-sm text-zinc-200">
+                <h3 className="font-display text-xl font-semibold text-zinc-100">Parsed Job Skills</h3>
+                <ul className="mt-3 flex flex-wrap gap-2 text-sm font-medium text-zinc-200">
                   {result.inputs.job_skills_normalized.map((skill) => (
                     <li key={skill} className="rounded-full border border-white/15 bg-black/45 px-3 py-1">
                       {skill}
@@ -215,11 +215,11 @@ export default function AnalyzePage() {
 
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               <div className="rounded-2xl border border-rose-300/45 bg-rose-500/10 p-4">
-                <h3 className="font-display text-lg font-semibold text-rose-200">Missing Skills</h3>
+                <h3 className="font-display text-xl font-semibold text-rose-200">Missing Skills</h3>
                 {(result.score?.missing_skills || []).length === 0 ? (
                   <p className="mt-2 text-sm text-emerald-300">No missing skills detected.</p>
                 ) : (
-                  <ul className="mt-3 flex flex-wrap gap-2 text-sm text-rose-100">
+                  <ul className="mt-3 flex flex-wrap gap-2 text-sm font-medium text-rose-100">
                     {(result.score?.missing_skills || []).map((item) => (
                       <li key={item.skill} className="rounded-full border border-rose-300/45 bg-black/35 px-3 py-1">
                         {item.skill} • w{item.weight}
@@ -230,11 +230,11 @@ export default function AnalyzePage() {
               </div>
 
               <div className="rounded-2xl border border-emerald-300/45 bg-emerald-500/10 p-4">
-                <h3 className="font-display text-lg font-semibold text-emerald-200">Matched Skills</h3>
+                <h3 className="font-display text-xl font-semibold text-emerald-200">Matched Skills</h3>
                 {(result.score?.matched_skills || []).length === 0 ? (
                   <p className="mt-2 text-sm text-amber-300">No strong semantic matches found.</p>
                 ) : (
-                  <ul className="mt-3 flex flex-wrap gap-2 text-sm text-emerald-100">
+                  <ul className="mt-3 flex flex-wrap gap-2 text-sm font-medium text-emerald-100">
                     {(result.score?.matched_skills || []).map((item) => (
                       <li key={item.skill} className="rounded-full border border-emerald-300/45 bg-black/35 px-3 py-1">
                         {item.skill} • +{item.contribution}
@@ -246,14 +246,29 @@ export default function AnalyzePage() {
             </div>
 
             <div className="mt-5 rounded-2xl border border-white/10 bg-black/30 p-4">
-              <h3 className="font-display text-lg font-semibold text-zinc-100">Deterministic Explanations</h3>
-              <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-                {(result.score?.explanations || []).map((text, index) => (
-                  <li key={index} className="rounded-xl border border-white/10 bg-black/40 p-3">
-                    {text}
-                  </li>
-                ))}
-              </ul>
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="font-display text-xl font-semibold text-zinc-100">Deterministic Explanations</h3>
+                <span className="rounded-full border border-cyan-300/40 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-200">
+                  {(result.score?.explanations || []).length} items
+                </span>
+              </div>
+
+              {(result.score?.explanations || []).length === 0 ? (
+                <p className="mt-3 rounded-xl border border-white/10 bg-black/35 p-3 text-sm text-zinc-300">
+                  No explanation details available.
+                </p>
+              ) : (
+                <ol className="mt-3 grid gap-2 text-sm text-zinc-200 md:grid-cols-2">
+                  {(result.score?.explanations || []).map((text, index) => (
+                    <li key={index} className="rounded-xl border border-white/10 bg-black/40 p-3">
+                      <div className="mb-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full border border-cyan-300/40 bg-cyan-500/10 px-2 text-xs font-semibold text-cyan-200">
+                        {index + 1}
+                      </div>
+                      <p className="whitespace-pre-line text-[15px] font-medium leading-relaxed text-zinc-100">{text}</p>
+                    </li>
+                  ))}
+                </ol>
+              )}
             </div>
 
           </section>
