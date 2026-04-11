@@ -15,6 +15,11 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   title: "HireWise",
   description: "HireWise: semantic resume-to-job matching with explainable readiness scoring",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
