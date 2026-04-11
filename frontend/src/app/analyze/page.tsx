@@ -248,10 +248,16 @@ export default function AnalyzePage() {
             </div>
 
             <div className="mt-5 rounded-2xl border border-white/10 bg-black/30 p-4">
-              <h3 className="font-display text-lg font-semibold text-zinc-100">Deterministic Explanations</h3>
-              <ul className="mt-3 space-y-2 text-sm text-zinc-200">
+              <div className="flex flex-wrap items-end justify-between gap-3">
+                <h3 className="font-display text-lg font-semibold text-zinc-100">Deterministic Explanations</h3>
+                <p className="text-sm font-semibold text-zinc-400">
+                  {(result.score?.explanations || []).length} explanation
+                  {(result.score?.explanations || []).length === 1 ? "" : "s"}
+                </p>
+              </div>
+              <ul className="mt-3 grid max-h-112 gap-2 overflow-y-auto pr-2 text-zinc-200 md:grid-cols-2">
                 {(result.score?.explanations || []).map((text, index) => (
-                  <li key={index} className="rounded-xl border border-white/10 bg-black/40 p-3">
+                  <li key={index} className="rounded-xl border border-white/10 bg-black/40 p-3 text-base leading-7 md:text-[1.02rem]">
                     {text}
                   </li>
                 ))}
