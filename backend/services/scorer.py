@@ -48,8 +48,8 @@ class WeightedReadinessScorer:
             skill_category = category_record["category"]
             # Weighted reasoning rule:
             # - If a skill is matched, contribution = weight * similarity_score.
-            # - If a skill is not matched, contribution = 0.
-            similarity_score = float(match["similarity_score"]) if match["is_matched"] else 0.0
+            # - If a skill is not matched but semantically close, grant partial credit.
+            similarity_score = float(match["similarity_score"])
             contribution = skill_weight * similarity_score
             weighted_score_sum += contribution
             contribution_record = {
@@ -91,10 +91,17 @@ class WeightedReadinessScorer:
                         "weight": skill_weight,
                     }
                 )
-                explanation_text = (
-                    f"Missing {skill_category.title()} Skill '{match['job_skill']}'. "
-                    f"This reduces the readiness score by potential {skill_weight} points."
-                )
+                if similarity_score > 0:
+                    explanation_text = (
+                        f"Below threshold for {skill_category.title()} Skill '{match['job_skill']}' "
+                        f"(best similarity={round(similarity_score, 2):.2f}). "
+                        f"Partial contribution: {round(contribution, 2):.2f}/{skill_weight}."
+                    )
+                else:
+                    explanation_text = (
+                        f"Missing {skill_category.title()} Skill '{match['job_skill']}'. "
+                        f"This reduces the readiness score by potential {skill_weight} points."
+                    )
                 explanations.append(explanation_text)
                 explanation_json.append(
                     {
@@ -103,8 +110,8 @@ class WeightedReadinessScorer:
                         "weight": skill_weight,
                         "status": "missing",
                         "matched_resume_skill": None,
-                        "similarity_score": 0.0,
-                        "contribution": 0.0,
+                        "similarity_score": round(similarity_score, 4),
+                        "contribution": round(contribution, 4),
                         "max_contribution": float(skill_weight),
                         "message": explanation_text,
                     }

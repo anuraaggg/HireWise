@@ -33,7 +33,7 @@ class SkillGapAnalysisRequest(BaseModel):
     skill_variations: Dict[str, str] = Field(default_factory=dict)
     category_weights: Dict[str, int] = Field(default_factory=dict)
     job_skill_categories: Dict[str, str] = Field(default_factory=dict)
-    similarity_threshold: float = 0.7
+    similarity_threshold: float = 0.65
     model_name: str = "all-mpnet-base-v2"
 
 
@@ -118,7 +118,7 @@ async def skill_gap_analyzer(request: SkillGapAnalysisRequest):
 async def skill_gap_analyzer_upload(
     resume_file: UploadFile = File(...),
     job_description: str = Form(...),
-    similarity_threshold: float = Form(0.7),
+    similarity_threshold: float = Form(0.65),
     model_name: str = Form("all-mpnet-base-v2"),
 ):
     if not job_description.strip():

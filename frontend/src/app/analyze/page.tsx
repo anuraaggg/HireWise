@@ -27,7 +27,7 @@ type AnalyzerResponse = {
 export default function AnalyzePage() {
   const [jobDescription, setJobDescription] = useState("");
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [threshold, setThreshold] = useState("0.7");
+  const [threshold, setThreshold] = useState("0.65");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<AnalyzerResponse | null>(null);
@@ -255,7 +255,7 @@ export default function AnalyzePage() {
                   {(result.score?.explanations || []).length === 1 ? "" : "s"}
                 </p>
               </div>
-              <ul className="mt-4 grid max-h-[28rem] gap-3 overflow-y-auto pr-2 text-zinc-200 md:grid-cols-2">
+              <ul className="mt-4 grid max-h-112 gap-3 overflow-y-auto pr-2 text-zinc-200 md:grid-cols-2">
                 {(result.score?.explanations || []).map((text, index) => (
                   <li key={index} className="rounded-xl border border-white/10 bg-black/40 p-4 text-[1.02rem] leading-7 md:text-lg">
                     {text}
