@@ -65,9 +65,11 @@ class WeightedReadinessScorer:
             if match["is_matched"]:
                 matched_skills.append(contribution_record)
                 explanation_text = (
-                    f"Matched {skill_category.title()} Skill '{match['job_skill']}' with resume skill "
-                    f"'{match['matched_resume_skill']}' (similarity={round(similarity_score, 2):.2f}). "
-                    f"Contribution: {round(contribution, 2):.2f}/{skill_weight}."
+                    f"Category: {skill_category.title()}\n"
+                    f"Job skill: {match['job_skill']}\n"
+                    f"Matched resume skill: {match['matched_resume_skill']}\n"
+                    f"Similarity: {round(similarity_score, 2):.2f}\n"
+                    f"Score impact: +{round(contribution, 2):.2f} out of {skill_weight}"
                 )
                 explanations.append(explanation_text)
                 explanation_json.append(
